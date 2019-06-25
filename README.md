@@ -1,6 +1,24 @@
 # arm-generator
 Abductive Reasoning Model (ARM) Generator
 
+*ARM Generator* generates the Abductive Reasoning Model of a System Under Test (SUT) by using a template file describing component behaviors.
+
+*ARM Generator* is developed at and copyrighted on [Institute of Software Technology][1] at [Graz University of Technology][2] under GNU General Public License v3.0. See the copyright notice at the end of this document for details.
+
+### System Requirements
+
+* [Perl][4] v5.14 or higher
+
+Above is the only requirement of *ARM Generator*.
+
+### How to Use
+
+```
+Usage: perl arm-generator.pl <system-file> <template-file>
+```
+
+### Example: Stuck At Fault ARMs for Verilog Code
+
 ### Copyright Notice
 
 Abductive Reasoning Model (ARM) Generator
@@ -21,3 +39,6 @@ along with gfuzzer. If not, see <https://www.gnu.org/licenses/>.
 
 * **mail:** ykoerogl@ist.tugraz.at
 * **address:** Inffeldgasse 16b/II, 8010 Graz/AUSTRIA
+
+[1]: http://www.ist.tugraz.at
+[2]: https://www.tugraz.at
