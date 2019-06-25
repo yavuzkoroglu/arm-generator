@@ -27,11 +27,47 @@ Usage: perl arm-generator.pl <system-file> <template-file> <output-file>
 
 ### Example: Stuck At Fault ARM for a Gate-Level Verilog Module
 
-The `examples` folder.
+The `examples` folder has 15 example combinational circuits and one sequential circuit design, *Car Window Controller*. For every example, we have the following files.
+
+1. `.pdf`/`.dot` file: Circuit Diagram.
+2. `.v` file: Gate-level implementation in Verilog.
+3. `.arm` file: Abductive Reasoning Model.
+
+To generate the `.arm` file for the first circuit, execute the following command from the main directory.
+
+```
+perl arm-generator.pl examples/c01/c1.v examples/VerilogLogicGates.txt examples/c01/c1.arm
+```
+Even if the circuit is sequential, *ARM Generator* still generates the `.arm` file as follows.
+
+```
+perl arm-generator.pl examples/carwindow/carwindow.v examples/VerilogLogicGates.txt examples/carwindow/carwindow.arm
+```
 
 ### Example: Behavioral ARM for an FSM
 
+Since *Car Window Controller* is a sequential circuit, it implements a Finite State Machine (FSM). *ARM Generator* generates the `.arm` file for the FSM of *Car Window Controller* as follows.
+
+```
+perl arm-generator.pl examples/carwindow/carwindowFSM.dot examples/FSM.txt examples/carwindow/carwindowFSM.arm
+```
+
 ### Template Files
+
+Template files declare component types used in the System Under Test (SUT). Our template files use the following structure.
+
+```
+BEGIN COMPONENT <component-typename>
+    <statements>
+END COMPONENT
+```
+
+*ARM Generator* copies and pastes every statement for every occurrence of the component type. Then, *ARM Generator* replaces the following special characters as follows.
+
+1. `#C` : `instance-name` and
+2. `#x` : `parameter #x` where x is a number.
+
+`examples/VerilogLogicGates.txt` is a good example template file.
 
 ### Copyright Notice
 
