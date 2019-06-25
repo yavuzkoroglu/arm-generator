@@ -17,7 +17,11 @@ Above is the only requirement of *ARM Generator*.
 Usage: perl arm-generator.pl <system-file> <template-file> <output-file>
 ```
 
-### Example: Stuck At Fault ARMs for Verilog Code
+### Example: Stuck At Fault ARM for a Verilog Code
+
+### Example: Behavioral ARM for an FSM
+
+### Template Files
 
 ### Copyright Notice
 
