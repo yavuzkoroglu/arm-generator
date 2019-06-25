@@ -5,6 +5,14 @@ Abductive Reasoning Model (ARM) Generator
 
 *ARM Generator* is developed at and copyrighted on [Institute of Software Technology][1] at [Graz University of Technology][2] under GNU General Public License v3.0. See the copyright notice at the end of this document for details.
 
+### Important Features
+
+*ARM Generator* generates ARMs from
+
+1. Combinational Circuits (in gate-level Verilog),
+2. Sequential Circuits (in gate-level Verilog), and
+3. Finite State Machines (in DOT language).
+
 ### System Requirements
 
 * [Perl][3] v5.14 or higher
@@ -17,7 +25,9 @@ Above is the only requirement of *ARM Generator*.
 Usage: perl arm-generator.pl <system-file> <template-file> <output-file>
 ```
 
-### Example: Stuck At Fault ARM for a Verilog Code
+### Example: Stuck At Fault ARM for a Gate-Level Verilog Module
+
+The `examples` folder.
 
 ### Example: Behavioral ARM for an FSM
 
