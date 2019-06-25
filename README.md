@@ -7,7 +7,7 @@ Abductive Reasoning Model (ARM) Generator
 
 ### System Requirements
 
-* [Perl][4] v5.14 or higher
+* [Perl][3] v5.14 or higher
 
 Above is the only requirement of *ARM Generator*.
 
@@ -42,3 +42,4 @@ along with gfuzzer. If not, see <https://www.gnu.org/licenses/>.
 
 [1]: http://www.ist.tugraz.at
 [2]: https://www.tugraz.at
+[3]: https://www.perl.org/get.html
