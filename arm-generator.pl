@@ -28,7 +28,10 @@ use autodie;
 use v5.14;
 
 my %component2model;
-my %observations;
+my %facts;
+my %FSMstates;
+my %FSMinputs;
+my %FSMtransitions;
 
 #
 # Parameters
@@ -127,31 +130,103 @@ sub main {
     my $cid = 0;
     my $sid = 0;
     while (my $line = <SUT>) {
-        for my $componentType (keys %component2model) {
-            if ($line =~ /^\s*$componentType\s*\((.*)\);/) {
-                my $paramstr = $1;
-                $paramstr =~ s/\s//g;
-                $paramstr =~ s/\[//g;
-                $paramstr =~ s/\]//g;
-                my @parameters = split ',', $paramstr;
-                $observations{$_} = '' for (@parameters);
+        if ($line =~ /^\s*(\S+)\s*->\s*(\S+)\s*\[label=\"(\S+)\"\];/) {
+            my ($state, $nextstate, $input) = ($1, $2, $3);
+            $input =~ s/\\n//g;
+            $FSMstates{$state} = '';
+            $FSMstates{$nextstate} = '';
+            $FSMinputs{$input} = '' unless ($input eq 'else');
+            $FSMtransitions{"$state:$input"} = $nextstate;
+        } else {
+            for my $componentType (keys %component2model) {
+                if ($line =~ /^\s*$componentType\s*\((.*)\);/) {
+                    my $paramstr = $1;
+                    $paramstr =~ s/\s//g;
+                    $paramstr =~ s/\[//g;
+                    $paramstr =~ s/\]//g;
+                    my @parameters = split ',', $paramstr;
+                    for (@parameters) {
+                        $facts{$_} = "val($_,false), val($_,true) -> false.";
+                    }
 
-                my $string = $component2model{$componentType};
-                $string =~ s/\#C/C$cid/g;
-                while ($string =~ /\#([0-9]+)/) {
-                    my $pid = $1;
-                    $string =~ s/\#$pid/$parameters[$pid]/g;
+                    my $string = $component2model{$componentType};
+                    $string =~ s/\#C/C$cid/g;
+                    while ($string =~ /\#([0-9]+)/) {
+                        my $pid = $1;
+                        $string =~ s/\#$pid/$parameters[$pid]/g;
+                    }
+
+                    say OUTPUT $string;
+
+                    $cid++;
                 }
-
-                say OUTPUT $string;
-
-                $cid++;
             }
         }
     }
     close (SUT);
 
-    say OUTPUT "val($_,false), val($_,true) -> false." for (sort keys %observations);
+    my @states = sort keys %FSMstates;
+    my $i = 0;
+    while ($i < $#states) {
+        my $j = $i + 1;
+        while ($j <= $#states) {
+            $facts{"$states[$i]:$states[$j]"} = "state($states[$i]), state($states[$j]) -> false.\nnextstate($states[$i]), nextstate($states[$j]) -> false.";
+            $j++;
+        }
+        $i++;
+    }
+    my @inputs = sort keys %FSMinputs;
+    $i = 0;
+    while ($i < $#inputs) {
+        my $j = $i + 1;
+        while ($j <= $#inputs) {
+            $facts{"$inputs[$i]:$inputs[$j]"}
+                = "val(FSMinput,$inputs[$i]), val(FSMinput,$inputs[$j]) -> false.";
+            $j++;
+        }
+        $i++;
+    }
+    for my $state (@states) {
+        my $stuckatpossible = 0;
+        my %possiblenextstates = ();
+        for my $input (@inputs) {
+            if (defined $FSMtransitions{"$state:$input"}) {
+                my $nextstate = $FSMtransitions{"$state:$input"};
+                say OUTPUT "Correct($state), state($state), val(FSMinput,$input) -> nextstate($nextstate).";
+                $stuckatpossible = 1 if ($state ne $nextstate);
+                $possiblenextstates{$nextstate} = '';
+            } elsif (defined $FSMtransitions{"$state:else"}) {
+                my $nextstate = $FSMtransitions{"$state:else"};
+                say OUTPUT "Correct($state), state($state), val(FSMinput,$input) -> nextstate($nextstate).";
+                $stuckatpossible = 1 if ($state ne $nextstate);
+                $possiblenextstates{$nextstate} = '';
+            } else {
+                warn("FSM may be incomplete. From state $state, there is no nextstate after input $input");
+            }
+        }
+        if ($stuckatpossible) {
+            say OUTPUT "StuckAt($state), state($state) -> nextstate($state).";
+        }
+        for my $candidate (@states) {
+            unless ($state eq $candidate or defined $possiblenextstates{$candidate}) {
+                say OUTPUT "StateGlitch($state), state($state) -> nextstate($candidate).";
+            } else {
+                for my $input (@inputs) {
+                    unless (defined $FSMtransitions{"$state:$input"} or
+                        (
+                            defined $FSMtransitions{"$state:else"} and
+                            defined $FSMtransitions{"$state:else"} eq $candidate
+                        ))
+                    {
+                        say OUTPUT "TransitionGlitch($state), state($state), val(FSMinput,$input) -> nextstate($candidate).";
+                    }
+                }
+            }
+        }
+        say OUTPUT '';
+    }
+
+    say OUTPUT $_ for (sort values %facts);
     close (OUTPUT);
 }
 

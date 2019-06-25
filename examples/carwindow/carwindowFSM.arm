@@ -1,82 +1,98 @@
-Correct(Closed), state(Closed), val(i,RELEASED) -> nextstate(Closed).
-Correct(Closed), state(Closed), val(i,PRESSED) -> nextstate(Opening).
-Correct(Closed), state(Closed), val(i,PULLED) -> nextstate(Closed).
-Correct(Closed), state(Closed), val(i,FINISHED) -> nextstate(Closed).
-StuckAt(Closed) -> nextstate(Closed).
-OpensWithNoReason(Closed), state(Closed), val(i,RELEASED) -> nextstate(Opening).
-OpensWithNoReason(Closed), state(Closed), val(i,PULLED) -> nextstate(Opening).
-OpensWithNoReason(Closed), state(Closed), val(i,FINISHED) -> nextstate(Opening).
-StateGlitch(Closed), state(Closed) -> nextstate(Stopped).
-StateGlitch(Closed), state(Closed) -> nextstate(Opened).
+Correct(Closed), state(Closed), val(FSMinput,FINISHED) -> nextstate(Closed).
+Correct(Closed), state(Closed), val(FSMinput,PRESSED) -> nextstate(Opening).
+Correct(Closed), state(Closed), val(FSMinput,PULLED) -> nextstate(Closed).
+Correct(Closed), state(Closed), val(FSMinput,RELEASED) -> nextstate(Closed).
+StuckAt(Closed), state(Closed) -> nextstate(Closed).
+TransitionGlitch(Closed), state(Closed), val(FSMinput,FINISHED) -> nextstate(Closed).
+TransitionGlitch(Closed), state(Closed), val(FSMinput,PULLED) -> nextstate(Closed).
+TransitionGlitch(Closed), state(Closed), val(FSMinput,RELEASED) -> nextstate(Closed).
 StateGlitch(Closed), state(Closed) -> nextstate(Closing).
+StateGlitch(Closed), state(Closed) -> nextstate(Opened).
+TransitionGlitch(Closed), state(Closed), val(FSMinput,FINISHED) -> nextstate(Opening).
+TransitionGlitch(Closed), state(Closed), val(FSMinput,PULLED) -> nextstate(Opening).
+TransitionGlitch(Closed), state(Closed), val(FSMinput,RELEASED) -> nextstate(Opening).
+StateGlitch(Closed), state(Closed) -> nextstate(Stopped).
 
-Correct(Opening), state(Opening), val(i, RELEASED) -> nextstate(Stopped).
-Correct(Opening), state(Opening), val(i, PULLED) -> nextstate(Opening).
-Correct(Opening), state(Opening), val(i, PRESSED) -> nextstate(Opening).
-Correct(Opening), state(Opening), val(i, FINISHED) -> nextstate(Opened).
-StuckAt(Opening) -> nextstate(Opening).
-StopsWithNoReason(Opening), state(Opening), val(i, PRESSED) -> nextState(Stopped).
-StateGlitch(Opening), state(Opening) -> nextstate(Closed).
-StateGlitch(Opening), state(Opening) -> nextstate(Closing).
-
-Correct(Opened), state(Opened), val(i,RELEASED) -> nextstate(Opened).
-Correct(Opened), state(Opened), val(i,PRESSED) -> nextstate(Opened).
-Correct(Opened), state(Opened), val(i,PULLED) -> nextstate(Closing).
-Correct(Opened), state(Opened), val(i,FINISHED) -> nextstate(Opened).
-StuckAt(Opened) -> nextstate(Opened).
-ClosesWithNoReason(Opened), state(Opened), val(i,RELEASED) -> nextstate(Closing).
-ClosesWithNoReason(Opened), state(Opened), val(i,PRESSED) -> nextstate(Closing).
-ClosesWithNoReason(Opened), state(Opened), val(i,FINISHED) -> nextstate(Closing).
-StateGlitch(Opened), state(Opened) -> nextstate(Stopped).
-StateGlitch(Opened), state(Opened) -> nextstate(Closed).
-StateGlitch(Opened), state(Opened) -> nextstate(Opening).
-
-Correct(Closing), state(Closing), val(i,RELEASED) -> nextstate(Stopped).
-Correct(Closing), state(Closing), val(i,PRESSED) -> nextstate(Closing).
-Correct(Closing), state(Closing), val(i,PULLED) -> nextstate(Closing).
-Correct(Closing), state(Closing), val(i,FINISHED) -> nextstate(Closed).
-StuckAt(Closing) -> nextstate(Closing).
-StopsWithNoReason(Closing), state(Closing), val(i, PULLED) -> nextState(Stopped).
+Correct(Closing), state(Closing), val(FSMinput,FINISHED) -> nextstate(Closed).
+Correct(Closing), state(Closing), val(FSMinput,PRESSED) -> nextstate(Closing).
+Correct(Closing), state(Closing), val(FSMinput,PULLED) -> nextstate(Closing).
+Correct(Closing), state(Closing), val(FSMinput,RELEASED) -> nextstate(Stopped).
+StuckAt(Closing), state(Closing) -> nextstate(Closing).
+TransitionGlitch(Closing), state(Closing), val(FSMinput,PRESSED) -> nextstate(Closed).
+TransitionGlitch(Closing), state(Closing), val(FSMinput,PULLED) -> nextstate(Closed).
+TransitionGlitch(Closing), state(Closing), val(FSMinput,PRESSED) -> nextstate(Closing).
+TransitionGlitch(Closing), state(Closing), val(FSMinput,PULLED) -> nextstate(Closing).
 StateGlitch(Closing), state(Closing) -> nextstate(Opened).
 StateGlitch(Closing), state(Closing) -> nextstate(Opening).
+TransitionGlitch(Closing), state(Closing), val(FSMinput,PRESSED) -> nextstate(Stopped).
+TransitionGlitch(Closing), state(Closing), val(FSMinput,PULLED) -> nextstate(Stopped).
 
-Correct(Stopped), state(Stopped), val(i,RELEASED) -> nextstate(Stopped).
-Correct(Stopped), state(Stopped), val(i,PRESSED) -> nextstate(Opening).
-Correct(Stopped), state(Stopped), val(i,PULLED) -> nextstate(Closing).
-Correct(Stopped), state(Stopped), val(i,FINISHED) -> nextstate(Stopped).
-StuckAt(Stopped) -> nextstate(Stopped).
-OpensWithNoReason(Stopped), state(Stopped), val(i,RELEASED) -> nextstate(Opening).
-OpensWithNoReason(Stopped), state(Stopped), val(i,PULLED) -> nextstate(Opening).
-OpensWithNoReason(Stopped), state(Stopped), val(i,FINISHED) -> nextstate(Opening).
-ClosesWithNoReason(Stopped), state(Stopped), val(i,RELEASED) -> nextstate(Closing).
-ClosesWithNoReason(Stopped), state(Stopped), val(i,PRESSED) -> nextstate(Closing).
-ClosesWithNoReason(Stopped), state(Stopped), val(i,FINISHED) -> nextstate(Closing).
-StateGlitch(Stopped), state(Stopped) -> nextstate(Opened).
+Correct(Opened), state(Opened), val(FSMinput,FINISHED) -> nextstate(Opened).
+Correct(Opened), state(Opened), val(FSMinput,PRESSED) -> nextstate(Opened).
+Correct(Opened), state(Opened), val(FSMinput,PULLED) -> nextstate(Closing).
+Correct(Opened), state(Opened), val(FSMinput,RELEASED) -> nextstate(Opened).
+StuckAt(Opened), state(Opened) -> nextstate(Opened).
+StateGlitch(Opened), state(Opened) -> nextstate(Closed).
+TransitionGlitch(Opened), state(Opened), val(FSMinput,FINISHED) -> nextstate(Closing).
+TransitionGlitch(Opened), state(Opened), val(FSMinput,PRESSED) -> nextstate(Closing).
+TransitionGlitch(Opened), state(Opened), val(FSMinput,RELEASED) -> nextstate(Closing).
+TransitionGlitch(Opened), state(Opened), val(FSMinput,FINISHED) -> nextstate(Opened).
+TransitionGlitch(Opened), state(Opened), val(FSMinput,PRESSED) -> nextstate(Opened).
+TransitionGlitch(Opened), state(Opened), val(FSMinput,RELEASED) -> nextstate(Opened).
+StateGlitch(Opened), state(Opened) -> nextstate(Opening).
+StateGlitch(Opened), state(Opened) -> nextstate(Stopped).
+
+Correct(Opening), state(Opening), val(FSMinput,FINISHED) -> nextstate(Opened).
+Correct(Opening), state(Opening), val(FSMinput,PRESSED) -> nextstate(Opening).
+Correct(Opening), state(Opening), val(FSMinput,PULLED) -> nextstate(Opening).
+Correct(Opening), state(Opening), val(FSMinput,RELEASED) -> nextstate(Stopped).
+StuckAt(Opening), state(Opening) -> nextstate(Opening).
+StateGlitch(Opening), state(Opening) -> nextstate(Closed).
+StateGlitch(Opening), state(Opening) -> nextstate(Closing).
+TransitionGlitch(Opening), state(Opening), val(FSMinput,PRESSED) -> nextstate(Opened).
+TransitionGlitch(Opening), state(Opening), val(FSMinput,PULLED) -> nextstate(Opened).
+TransitionGlitch(Opening), state(Opening), val(FSMinput,PRESSED) -> nextstate(Opening).
+TransitionGlitch(Opening), state(Opening), val(FSMinput,PULLED) -> nextstate(Opening).
+TransitionGlitch(Opening), state(Opening), val(FSMinput,PRESSED) -> nextstate(Stopped).
+TransitionGlitch(Opening), state(Opening), val(FSMinput,PULLED) -> nextstate(Stopped).
+
+Correct(Stopped), state(Stopped), val(FSMinput,FINISHED) -> nextstate(Stopped).
+Correct(Stopped), state(Stopped), val(FSMinput,PRESSED) -> nextstate(Opening).
+Correct(Stopped), state(Stopped), val(FSMinput,PULLED) -> nextstate(Closing).
+Correct(Stopped), state(Stopped), val(FSMinput,RELEASED) -> nextstate(Stopped).
+StuckAt(Stopped), state(Stopped) -> nextstate(Stopped).
 StateGlitch(Stopped), state(Stopped) -> nextstate(Closed).
+TransitionGlitch(Stopped), state(Stopped), val(FSMinput,FINISHED) -> nextstate(Closing).
+TransitionGlitch(Stopped), state(Stopped), val(FSMinput,RELEASED) -> nextstate(Closing).
+StateGlitch(Stopped), state(Stopped) -> nextstate(Opened).
+TransitionGlitch(Stopped), state(Stopped), val(FSMinput,FINISHED) -> nextstate(Opening).
+TransitionGlitch(Stopped), state(Stopped), val(FSMinput,RELEASED) -> nextstate(Opening).
+TransitionGlitch(Stopped), state(Stopped), val(FSMinput,FINISHED) -> nextstate(Stopped).
+TransitionGlitch(Stopped), state(Stopped), val(FSMinput,RELEASED) -> nextstate(Stopped).
 
-state(Closed), state(Opening) -> false.
-state(Closed), state(Opened) -> false.
 state(Closed), state(Closing) -> false.
-state(Closed), state(Stopped) -> false.
-state(Opening), state(Opened) -> false.
-state(Opening), state(Closing) -> false.
-state(Opening), state(Stopped) -> false.
-state(Opened), state(Closing) -> false.
-state(Opened), state(Stopped) -> false.
-
-nextstate(Closed), nextstate(Opening) -> false.
-nextstate(Closed), nextstate(Opened) -> false.
 nextstate(Closed), nextstate(Closing) -> false.
+state(Closed), state(Opened) -> false.
+nextstate(Closed), nextstate(Opened) -> false.
+state(Closed), state(Opening) -> false.
+nextstate(Closed), nextstate(Opening) -> false.
+state(Closed), state(Stopped) -> false.
 nextstate(Closed), nextstate(Stopped) -> false.
-nextstate(Opening), nextstate(Opened) -> false.
-nextstate(Opening), nextstate(Closing) -> false.
-nextstate(Opening), nextstate(Stopped) -> false.
-nextstate(Opened), nextstate(Closing) -> false.
+state(Closing), state(Opened) -> false.
+nextstate(Closing), nextstate(Opened) -> false.
+state(Closing), state(Opening) -> false.
+nextstate(Closing), nextstate(Opening) -> false.
+state(Closing), state(Stopped) -> false.
+nextstate(Closing), nextstate(Stopped) -> false.
+state(Opened), state(Opening) -> false.
+nextstate(Opened), nextstate(Opening) -> false.
+state(Opened), state(Stopped) -> false.
 nextstate(Opened), nextstate(Stopped) -> false.
-
-val(i,RELEASED), val(i,PRESSED) -> false.
-val(i,RELEASED), val(i,PULLED) -> false.
-val(i,RELEASED), val(i,FINISHED) -> false.
-val(i,PRESSED), val(i,PULLED) -> false.
-val(i,PRESSED), val(i,FINISHED) -> false.
-val(i,PULLED), val(i,FINISHED) -> false.
+state(Opening), state(Stopped) -> false.
+nextstate(Opening), nextstate(Stopped) -> false.
+val(FSMinput,FINISHED), val(FSMinput,PRESSED) -> false.
+val(FSMinput,FINISHED), val(FSMinput,PULLED) -> false.
+val(FSMinput,FINISHED), val(FSMinput,RELEASED) -> false.
+val(FSMinput,PRESSED), val(FSMinput,PULLED) -> false.
+val(FSMinput,PRESSED), val(FSMinput,RELEASED) -> false.
+val(FSMinput,PULLED), val(FSMinput,RELEASED) -> false.
