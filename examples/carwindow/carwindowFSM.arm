@@ -1,0 +1,82 @@
+Correct(Closed), state(Closed), val(i,RELEASED) -> nextstate(Closed).
+Correct(Closed), state(Closed), val(i,PRESSED) -> nextstate(Opening).
+Correct(Closed), state(Closed), val(i,PULLED) -> nextstate(Closed).
+Correct(Closed), state(Closed), val(i,FINISHED) -> nextstate(Closed).
+StuckAt(Closed) -> nextstate(Closed).
+OpensWithNoReason(Closed), state(Closed), val(i,RELEASED) -> nextstate(Opening).
+OpensWithNoReason(Closed), state(Closed), val(i,PULLED) -> nextstate(Opening).
+OpensWithNoReason(Closed), state(Closed), val(i,FINISHED) -> nextstate(Opening).
+StateGlitch(Closed), state(Closed) -> nextstate(Stopped).
+StateGlitch(Closed), state(Closed) -> nextstate(Opened).
+StateGlitch(Closed), state(Closed) -> nextstate(Closing).
+
+Correct(Opening), state(Opening), val(i, RELEASED) -> nextstate(Stopped).
+Correct(Opening), state(Opening), val(i, PULLED) -> nextstate(Opening).
+Correct(Opening), state(Opening), val(i, PRESSED) -> nextstate(Opening).
+Correct(Opening), state(Opening), val(i, FINISHED) -> nextstate(Opened).
+StuckAt(Opening) -> nextstate(Opening).
+StopsWithNoReason(Opening), state(Opening), val(i, PRESSED) -> nextState(Stopped).
+StateGlitch(Opening), state(Opening) -> nextstate(Closed).
+StateGlitch(Opening), state(Opening) -> nextstate(Closing).
+
+Correct(Opened), state(Opened), val(i,RELEASED) -> nextstate(Opened).
+Correct(Opened), state(Opened), val(i,PRESSED) -> nextstate(Opened).
+Correct(Opened), state(Opened), val(i,PULLED) -> nextstate(Closing).
+Correct(Opened), state(Opened), val(i,FINISHED) -> nextstate(Opened).
+StuckAt(Opened) -> nextstate(Opened).
+ClosesWithNoReason(Opened), state(Opened), val(i,RELEASED) -> nextstate(Closing).
+ClosesWithNoReason(Opened), state(Opened), val(i,PRESSED) -> nextstate(Closing).
+ClosesWithNoReason(Opened), state(Opened), val(i,FINISHED) -> nextstate(Closing).
+StateGlitch(Opened), state(Opened) -> nextstate(Stopped).
+StateGlitch(Opened), state(Opened) -> nextstate(Closed).
+StateGlitch(Opened), state(Opened) -> nextstate(Opening).
+
+Correct(Closing), state(Closing), val(i,RELEASED) -> nextstate(Stopped).
+Correct(Closing), state(Closing), val(i,PRESSED) -> nextstate(Closing).
+Correct(Closing), state(Closing), val(i,PULLED) -> nextstate(Closing).
+Correct(Closing), state(Closing), val(i,FINISHED) -> nextstate(Closed).
+StuckAt(Closing) -> nextstate(Closing).
+StopsWithNoReason(Closing), state(Closing), val(i, PULLED) -> nextState(Stopped).
+StateGlitch(Closing), state(Closing) -> nextstate(Opened).
+StateGlitch(Closing), state(Closing) -> nextstate(Opening).
+
+Correct(Stopped), state(Stopped), val(i,RELEASED) -> nextstate(Stopped).
+Correct(Stopped), state(Stopped), val(i,PRESSED) -> nextstate(Opening).
+Correct(Stopped), state(Stopped), val(i,PULLED) -> nextstate(Closing).
+Correct(Stopped), state(Stopped), val(i,FINISHED) -> nextstate(Stopped).
+StuckAt(Stopped) -> nextstate(Stopped).
+OpensWithNoReason(Stopped), state(Stopped), val(i,RELEASED) -> nextstate(Opening).
+OpensWithNoReason(Stopped), state(Stopped), val(i,PULLED) -> nextstate(Opening).
+OpensWithNoReason(Stopped), state(Stopped), val(i,FINISHED) -> nextstate(Opening).
+ClosesWithNoReason(Stopped), state(Stopped), val(i,RELEASED) -> nextstate(Closing).
+ClosesWithNoReason(Stopped), state(Stopped), val(i,PRESSED) -> nextstate(Closing).
+ClosesWithNoReason(Stopped), state(Stopped), val(i,FINISHED) -> nextstate(Closing).
+StateGlitch(Stopped), state(Stopped) -> nextstate(Opened).
+StateGlitch(Stopped), state(Stopped) -> nextstate(Closed).
+
+state(Closed), state(Opening) -> false.
+state(Closed), state(Opened) -> false.
+state(Closed), state(Closing) -> false.
+state(Closed), state(Stopped) -> false.
+state(Opening), state(Opened) -> false.
+state(Opening), state(Closing) -> false.
+state(Opening), state(Stopped) -> false.
+state(Opened), state(Closing) -> false.
+state(Opened), state(Stopped) -> false.
+
+nextstate(Closed), nextstate(Opening) -> false.
+nextstate(Closed), nextstate(Opened) -> false.
+nextstate(Closed), nextstate(Closing) -> false.
+nextstate(Closed), nextstate(Stopped) -> false.
+nextstate(Opening), nextstate(Opened) -> false.
+nextstate(Opening), nextstate(Closing) -> false.
+nextstate(Opening), nextstate(Stopped) -> false.
+nextstate(Opened), nextstate(Closing) -> false.
+nextstate(Opened), nextstate(Stopped) -> false.
+
+val(i,RELEASED), val(i,PRESSED) -> false.
+val(i,RELEASED), val(i,PULLED) -> false.
+val(i,RELEASED), val(i,FINISHED) -> false.
+val(i,PRESSED), val(i,PULLED) -> false.
+val(i,PRESSED), val(i,FINISHED) -> false.
+val(i,PULLED), val(i,FINISHED) -> false.

@@ -1,0 +1,48 @@
+Correct(C0), val(i0,false) -> val(w0,false).
+Correct(C0), val(i1,false) -> val(w0,false).
+Correct(C0), val(i0,true), val(i1,true) -> val(w0,true).
+StuckAt(C0,0) -> val(w0,false).
+StuckAt(C0,1) -> val(w0,true).
+
+Correct(C1), val(i2,false) -> val(w1,false).
+Correct(C1), val(i3,false) -> val(w1,false).
+Correct(C1), val(i2,true), val(i3,true) -> val(w1,true).
+StuckAt(C1,0) -> val(w1,false).
+StuckAt(C1,1) -> val(w1,true).
+
+Correct(C2), val(i4,true) -> val(w2,true).
+Correct(C2), val(i5,true) -> val(w2,true).
+Correct(C2), val(i4,false), val(i5,false) -> val(w2,false).
+StuckAt(C2,0) -> val(w2,false).
+StuckAt(C2,1) -> val(w2,true).
+
+Correct(C3), val(w0,false) -> val(w3,false).
+Correct(C3), val(w1,false) -> val(w3,false).
+Correct(C3), val(w0,true), val(w1,true) -> val(w3,true).
+StuckAt(C3,0) -> val(w3,false).
+StuckAt(C3,1) -> val(w3,true).
+
+Correct(C4), val(w1,true) -> val(w4,true).
+Correct(C4), val(w2,true) -> val(w4,true).
+Correct(C4), val(w1,false), val(w2,false) -> val(w4,false).
+StuckAt(C4,0) -> val(w4,false).
+StuckAt(C4,1) -> val(w4,true).
+
+Correct(C5), val(w3,false) -> val(o,false).
+Correct(C5), val(w4,false) -> val(o,false).
+Correct(C5), val(w3,true), val(w4,true) -> val(o,true).
+StuckAt(C5,0) -> val(o,false).
+StuckAt(C5,1) -> val(o,true).
+
+val(i0,false), val(i0,true) -> false.
+val(i1,false), val(i1,true) -> false.
+val(i2,false), val(i2,true) -> false.
+val(i3,false), val(i3,true) -> false.
+val(i4,false), val(i4,true) -> false.
+val(i5,false), val(i5,true) -> false.
+val(o,false), val(o,true) -> false.
+val(w0,false), val(w0,true) -> false.
+val(w1,false), val(w1,true) -> false.
+val(w2,false), val(w2,true) -> false.
+val(w3,false), val(w3,true) -> false.
+val(w4,false), val(w4,true) -> false.

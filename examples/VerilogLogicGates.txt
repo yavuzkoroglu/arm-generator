@@ -1,0 +1,56 @@
+BEGIN COMPONENT and
+Correct(#C), val(#1,false) -> val(#0,false).
+Correct(#C), val(#2,false) -> val(#0,false).
+Correct(#C), val(#1,true), val(#2,true) -> val(#0,true).
+StuckAt(#C,0) -> val(#0,false).
+StuckAt(#C,1) -> val(#0,true).
+END COMPONENT
+
+BEGIN COMPONENT nand
+Correct(#C), val(#1,false) -> val(#0,true).
+Correct(#C), val(#2,false) -> val(#0,true).
+Correct(#C), val(#1,true), val(#2,true) -> val(#0,false).
+StuckAt(#C,0) -> val(#0,false).
+StuckAt(#C,1) -> val(#0,true).
+END COMPONENT
+
+BEGIN COMPONENT or
+Correct(#C), val(#1,true) -> val(#0,true).
+Correct(#C), val(#2,true) -> val(#0,true).
+Correct(#C), val(#1,false), val(#2,false) -> val(#0,false).
+StuckAt(#C,0) -> val(#0,false).
+StuckAt(#C,1) -> val(#0,true).
+END COMPONENT
+
+BEGIN COMPONENT nor
+Correct(#C), val(#1,true) -> val(#0,false).
+Correct(#C), val(#2,true) -> val(#0,false).
+Correct(#C), val(#1,false), val(#2,false) -> val(#0,true).
+StuckAt(#C,0) -> val(#0,false).
+StuckAt(#C,1) -> val(#0,true).
+END COMPONENT
+
+BEGIN COMPONENT not
+Correct(#C), val(#1,true) -> val(#0,false).
+Correct(#C), val(#1,false) -> val(#0,true).
+StuckAt(#C,0) -> val(#0,false).
+StuckAt(#C,1) -> val(#0,true).
+END COMPONENT
+
+BEGIN COMPONENT xor
+Correct(#C), val(#1,false), val(#2,true) -> val(#0,true).
+Correct(#C), val(#1,true), val(#2,false) -> val(#0,true).
+Correct(#C), val(#1,false), val(#2,false) -> val(#0,false).
+Correct(#C), val(#1,true), val(#2,true) -> val(#0,false).
+StuckAt(#C,0) -> val(#0,false).
+StuckAt(#C,1) -> val(#0,true).
+END COMPONENT
+
+BEGIN COMPONENT xnor
+Correct(#C), val(#1,false), val(#2,false) -> val(#0,true).
+Correct(#C), val(#1,true), val(#2,true) -> val(#0,true).
+Correct(#C), val(#1,false), val(#2,true) -> val(#0,false).
+Correct(#C), val(#1,true), val(#2,false) -> val(#0,false).
+StuckAt(#C,0) -> val(#0,false).
+StuckAt(#C,1) -> val(#0,true).
+END COMPONENT

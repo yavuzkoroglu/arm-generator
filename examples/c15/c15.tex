@@ -1,0 +1,30 @@
+\documentclass[tikz]{standalone}
+\usetikzlibrary{decorations.pathreplacing,backgrounds}
+\usepackage{circuitikz}
+\begin{document}
+\ctikzset{bipoles/not port/height=.33}
+\ctikzset{bipoles/not port/width=.5}
+\begin{circuitikz} 
+\draw
+(0,0)         node (G1) [and port]           {}
+(G1.in 1) node (i0)     [anchor=east]  {$i_0$}
+(G1.in 2) node (i1)     [anchor=east]  {$i_1$}
+(0,-1.5)         node (G2) [and port]           {}
+(G2.in 1) node (i2)     [anchor=east]  {$i_2$}
+(G2.in 2) node (i3)     [anchor=east]  {$i_3$}
+(0,-3)         node (G3) [or port]           {}
+(G3.in 1) node (i4)     [anchor=east]  {$i_4$}
+(G3.in 2) node (i5)     [anchor=east]  {$i_5$}
+(2,-.75)         node (G4) [or port]           {}
+(2,-2.25)         node (G5) [or port]           {}
+(4,-1.5)         node (G6) [xor port]           {}
+(G6.out) node (o)	[anchor=west] {$o$};
+
+\draw (G1.out) |- (G4.in 1);
+\draw (G2.out) |- (G4.in 2);
+\draw (G2.out) |- (G5.in 1);
+\draw (G3.out) |- (G5.in 2);
+\draw (G4.out) |- (G6.in 1);
+\draw (G5.out) |- (G6.in 2);
+\end{circuitikz}
+\end{document}

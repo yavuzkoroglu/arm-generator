@@ -1,0 +1,52 @@
+#
+# RELEASED = 00
+# PRESSED = 01
+# PULLED = 10
+# FINISHED = 11
+#
+# Closed = 000
+# Opening = 001
+# Stopped = 010
+# Closing = 011
+# Opened = 100
+#
+# s2 s1 s0 i1 i0 | n2 n1 n0 || s2 s1 s0 i1 i0 | n2 n1 n0
+#----------------|----------||----------------|----------
+#  0  0  0  0  0 |  0  0  0 ||  1  0  0  0  0 |  1  0  0
+#  0  0  0  0  1 |  0  0  1 ||  1  0  0  0  1 |  1  0  0
+#  0  0  0  1  0 |  0  0  0 ||  1  0  0  1  0 |  0  1  1  
+#  0  0  0  1  1 |  0  0  0 ||  1  0  0  1  1 |  1  0  0
+#  0  0  1  0  0 |  0  1  0 ||  1  0  1  0  0 | 
+#  0  0  1  0  1 |  0  0  1 ||  1  0  1  0  1 | 
+#  0  0  1  1  0 |  0  0  1 ||  1  0  1  1  0 | 
+#  0  0  1  1  1 |  1  0  0 ||  1  0  1  1  1 | 
+#  0  1  0  0  0 |  0  1  0 ||  1  1  0  0  0 | 
+#  0  1  0  0  1 |  0  0  1 ||  1  1  0  0  1 | 
+#  0  1  0  1  0 |  0  1  1 ||  1  1  0  1  0 | 
+#  0  1  0  1  1 |  0  1  0 ||  1  1  0  1  1 | 
+#  0  1  1  0  0 |  0  1  0 ||  1  1  1  0  0 | 
+#  0  1  1  0  1 |  0  1  1 ||  1  1  1  0  1 | 
+#  0  1  1  1  0 |  0  1  1 ||  1  1  1  1  0 | 
+#  0  1  1  1  1 |  0  0  0 ||  1  1  1  1  1 | 
+#
+# n2 = s2 i1' + s2 i0 + s1' s0 i1 i0
+# n1 = s1 i0' + s0 i1' i0' + s1 s0' i1 + s1 s0 i1' + s2 i1 i0'
+# n0 = s2' i1' i0 + s2 i1 i0' + s1 i1 i0' + s0 i1 i0'
+#
+digraph carwindow {
+    rankdir=LR;
+    Opening -> Stopped [label="RELEASED"];
+    Opening -> Opened  [label="FINISHED"];
+    Opening -> Opening [label="else"];
+    Closed -> Opening  [label="\nPRESSED"];
+    Closed -> Closed   [label="else"];
+    Stopped -> Opening [label="PRESSED"];
+    Stopped -> Closing [label="PULLED"];
+    Stopped -> Stopped [label="else"];
+    Opened -> Closing  [label="PULLED"];
+    Opened -> Opened   [label="else"];
+    Closing -> Stopped [label="RELEASED"];
+    Closing -> Closed  [label="\nFINISHED"];
+    Closing -> Closing [label="else"];
+    {rank=same Stopped Closed}
+}

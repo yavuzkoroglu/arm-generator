@@ -14,7 +14,7 @@ Above is the only requirement of *ARM Generator*.
 ### How to Use
 
 ```
-Usage: perl arm-generator.pl <system-file> <template-file>
+Usage: perl arm-generator.pl <system-file> <template-file> <output-file>
 ```
 
 ### Example: Stuck At Fault ARMs for Verilog Code
@@ -35,7 +35,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with gfuzzer. If not, see <https://www.gnu.org/licenses/>.
+along with ARM generator. If not, see <https://www.gnu.org/licenses/>.
 
 * **mail:** ykoerogl@ist.tugraz.at
 * **address:** Inffeldgasse 16b/II, 8010 Graz/AUSTRIA
